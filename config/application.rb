@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Cotidie
   class Application < Rails::Application
+    require File.expand_path('../../lib/languages/polish_language_pack', __FILE__)
+    language = PolishLanguagePack.new
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

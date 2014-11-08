@@ -1,0 +1,3 @@
+class PolishLanguagePack
+
+end
