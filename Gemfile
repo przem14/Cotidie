@@ -16,8 +16,6 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'haml-rails'
 
-gem 'erb2haml', :group => :development
-
 gem 'devise'
 
 # Use jquery as the JavaScript library
