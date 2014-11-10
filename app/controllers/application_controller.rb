@@ -4,8 +4,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  protected
 
+  attr_reader :language
+
+  def initialize
+    require File.expand_path('../../../lib/languages/polish_language_pack', __FILE__)
+    @language = PolishLanguagePack.new
+  end
+
+protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :role << :name << :surname << :pesel
     devise_parameter_sanitizer.for(:account_update) << :name << :surname
