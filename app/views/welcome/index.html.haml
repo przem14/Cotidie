@@ -4,7 +4,7 @@
       = current_user.name
       = current_user.surname
     = link_to @language.edit, edit_user_registration_path
-    = link_to @language.sign_out, destroy_user_session_path
+    = link_to @language.sign_out, destroy_user_session_path, method: :get
   - else
     = link_to @language.sign_in, new_user_session_path
     = link_to @language.sign_up, new_user_registration_path
