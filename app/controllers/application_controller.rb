@@ -16,5 +16,6 @@ protected
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :role << :name << :surname << :personal_id
     devise_parameter_sanitizer.for(:account_update) << :name << :surname
+    devise_parameter_sanitizer.for(:sign_up) << :is_approved
   end
 end

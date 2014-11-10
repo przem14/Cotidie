@@ -8,10 +8,17 @@ class User < ActiveRecord::Base
   has_one :teacher_class, class_name: "SchoolClass", foreign_key: "teacher_id"
   has_many :subjects, class_name: "Subject", foreign_key: "teacher_id"
 
+  after_initialize :set_not_approved
+
   enum role: [:teacher, :student, :tutor, :admin]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+private
+  def set_not_approved
+    self.is_approved ||= false
+  end
 end

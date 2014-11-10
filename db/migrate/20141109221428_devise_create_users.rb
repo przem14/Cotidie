@@ -34,6 +34,8 @@ class DeviseCreateUsers < ActiveRecord::Migration
       t.string :surname
       t.string :personal_id
 
+      t.boolean :is_approved
+
       t.timestamps
     end
 

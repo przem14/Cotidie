@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20141110085334) do
     t.string   "name"
     t.string   "surname"
     t.string   "personal_id"
+    t.boolean  "is_approved"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role"
