@@ -1,0 +1,28 @@
+%p#notice= notice
+%h1= @language.admin_panel
+
+%table
+  %tr
+    %th= @language.name
+    %th= @language.surname
+    %th= @language.email
+    %th= @language.personal_id
+    %th= @language.role
+    %th= @language.is_approved
+    %th
+    %th
+    %th
+
+  - @users.each do |user|
+    %tr
+      %td= user.name
+      %td= user.surname
+      %td= user.email
+      %td= user.personal_id
+      %td= @language.roles[user.role]
+      %td= @language.approved[user.is_approved]
+      %td= link_to @language.show, user
+      %td= link_to @language.edit, edit_user_path(user)
+      %td= link_to @language.delete_account, user, :method => :delete, :data => { :confirm => @language.sure }
+
+%br

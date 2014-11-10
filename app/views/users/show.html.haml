@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b= @language.name
+  = @user.name
+%p
+  %b= @language.surname
+  = @user.surname
+%p
+  %b= @language.personal_id
+  = @user.personal_id
+%p
+  %b= @language.email
+  = @user.email
+%p
+  %b= @language.role
+  = @language.roles[@user.role]
+%p
+  %b= @language.is_approved
+  = @language.approved[@user.is_approved]
+
+= link_to @language.edit, edit_user_path(@user)
+\|
+= link_to @language.back, users_path

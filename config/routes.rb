@@ -5,9 +5,11 @@ Rails.application.routes.draw do
 
   resources :degrees
 
-  devise_for :users
-  get 'welcome/index'
+  devise_for :users, :path_prefix => 'admin'
 
+  resources :users
+
+  get 'welcome/index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

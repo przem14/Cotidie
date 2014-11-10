@@ -17,6 +17,14 @@
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
     %div
       Currently waiting confirmation for: #{resource.unconfirmed_email}
+  - if current_user.role == 'admin'
+    .field
+      %br
+      = f.label @language.role
+      = f.select(:role, {@language.student  => 'student',
+                         @language.teacher  => 'teacher',
+                         @language.tutor    => 'tutor',
+                         @language.admin    => 'admin'})
   .field
     = f.label @language.password
     %i (leave blank if you don't want to change it)
@@ -34,4 +42,4 @@
   .actions
     = f.submit @language.update
 = button_to @language.delete_account, registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete
-= link_to "Back", :back
+= link_to @language.back, :back
