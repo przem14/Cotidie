@@ -11,10 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141109221444) do
+ActiveRecord::Schema.define(version: 20141110085334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "degrees", force: true do |t|
+    t.string   "value"
+    t.string   "activity"
+    t.text     "description"
+    t.integer  "student_id"
+    t.integer  "subject_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "school_classes", force: true do |t|
+    t.string   "name"
+    t.integer  "teacher_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "subjects", force: true do |t|
+    t.string   "name"
+    t.integer  "school_class_id"
+    t.integer  "teacher_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -33,9 +58,13 @@ ActiveRecord::Schema.define(version: 20141109221444) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role"
+    t.integer  "student_class_id"
+    t.integer  "tutor_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["student_class_id"], name: "index_users_on_student_class_id", using: :btree
+  add_index "users", ["tutor_id"], name: "index_users_on_tutor_id", using: :btree
 
 end

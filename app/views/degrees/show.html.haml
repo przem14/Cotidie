@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Value:
+  = @degree.value
+%p
+  %b Activity:
+  = @degree.activity
+%p
+  %b Description:
+  = @degree.description
+
+= link_to 'Edit', edit_degree_path(@degree)
+\|
+= link_to 'Back', degrees_path
