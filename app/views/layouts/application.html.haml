@@ -1,4 +1,3 @@
-!!!
 %html
   %head
     %title Cotidie
@@ -6,4 +5,18 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
+    %div{:align => 'right'}
+      - if user_signed_in?
+        %b
+          = current_user.name
+          = current_user.surname
+      = link_to @language.home_page, root_path
+      - if user_signed_in?
+        - if current_user.role == 'admin'
+          = link_to @language.admin_panel, users_path
+        = link_to @language.edit, edit_user_registration_path
+        = link_to @language.sign_out, destroy_user_session_path , :method => :delete, method: :get
+      - else
+        = link_to @language.sign_in, new_user_session_path
+        = link_to @language.sign_up, new_user_registration_path
     = yield
