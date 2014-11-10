@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   validates :surname, presence: true
   validates :personal_id, presence: true
   validates :personal_id, length: {is:11}
+  validates :personal_id, numericality: true
 
   after_initialize :set_not_approved
 
