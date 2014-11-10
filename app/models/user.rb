@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
   has_one :teacher_class, class_name: "SchoolClass", foreign_key: "teacher_id"
   has_many :subjects, class_name: "Subject", foreign_key: "teacher_id"
 
+  validates :name, presence: true
+  validates :surname, presence: true
+  validates :personal_id, presence: true
+  validates :personal_id, length: {is:11}
+
   after_initialize :set_not_approved
 
   enum role: [:teacher, :student, :tutor, :admin]
