@@ -4,8 +4,8 @@
       = current_user.name
       = current_user.surname
     = link_to @language.edit, edit_user_registration_path
-    = link_to @language.sign_out, destroy_user_session_path , :method => :delete
+    = link_to @language.sign_out, destroy_user_session_path
   - else
-    = link_to @language.sing_in, new_user_session_path
+    = link_to @language.sign_in, new_user_session_path
     = link_to @language.sign_up, new_user_registration_path
 %h1 Welcome
