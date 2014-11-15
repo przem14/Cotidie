@@ -35,6 +35,20 @@ div {
   }
 }
 
+.switch_panel {
+  text-align: left;
+  font-size: 12pt;
+}
+
+.value_column input {
+  width: 30px;
+}
+
+.description_column textarea {
+  height: 23px;
+  width: 300px;
+}
+
 #notice {
   color: green;
 }

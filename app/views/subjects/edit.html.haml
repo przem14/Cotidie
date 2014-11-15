@@ -1,7 +1,7 @@
-%h1 Editing subject
+%h1= @language.edit_subject
 
 = render 'form'
 
-= link_to 'Show', @subject
+= link_to @language.edit, @subject
 \|
-= link_to 'Back', subjects_path
+= link_to @language.back, subjects_path

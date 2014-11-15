@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :school_classes
+  resources :school_classes do
+    member do
+      get 'delete_from_class'
+    end
+  end
 
   resources :subjects
 

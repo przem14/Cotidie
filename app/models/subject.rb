@@ -4,4 +4,8 @@ class Subject < ActiveRecord::Base
   has_many :degrees
 
   validates :name, presence: true, length: { in: 2..30 }
+
+  def name_with_class
+    "#{name}, #{school_class.name}"
+  end
 end

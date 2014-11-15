@@ -1,19 +1,38 @@
-%h1 Listing subjects
+%p#notice= notice
+.switch_panel
+  - if current_user.role == 'admin'
+    =link_to @language.users, users_path
+  - if current_user.role != 'tutor'
+    = link_to @language.classes, school_classes_path
+  %b= @language.subjects
+  = link_to @language.degrees, degrees_path
+
+%br
+
 
 %table
   %tr
-    %th Name
+    %th= @language.subject_name
+    %th= @language.class
+    %th= @language.teacher
     %th
-    %th
-    %th
+    - if current_user.role == 'admin' or current_user.role == 'teacher'
+      %th
+      %th
+      %th
 
   - @subjects.each do |subject|
     %tr
       %td= subject.name
-      %td= link_to 'Show', subject
-      %td= link_to 'Edit', edit_subject_path(subject)
-      %td= link_to 'Destroy', subject, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= subject.school_class.name
+      %td= subject.teacher.full_name
+      %td= link_to @language.show, subject
+      - if current_user.role == 'admin' or current_user.role == 'teacher'
+        %td= link_to @language.edit, edit_subject_path(subject)
+        %td= link_to @language.insert_degrees, :controller => 'degrees', :action => 'new', :subject_id => subject.id
+        %td= link_to @language.delete, subject, :method => :delete, :data => { :confirm => @language.sure }
 
 %br
 
-= link_to 'New Subject', new_subject_path
+- if current_user.role == 'admin' or current_user.role == 'teacher'
+  = link_to @language.new_subject, new_subject_path

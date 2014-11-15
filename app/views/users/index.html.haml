@@ -1,5 +1,11 @@
 %p#notice= notice
-%h1= @language.admin_panel
+.switch_panel
+  %b= @language.users
+  = link_to @language.classes, school_classes_path
+  = link_to @language.subjects, subjects_path
+  = link_to @language.degrees, degrees_path
+
+%br
 
 %table
   %tr

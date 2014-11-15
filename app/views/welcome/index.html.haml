@@ -1,2 +1,7 @@
 %p#notice= notice
 %h1= @language.home_page
+
+- if user_signed_in?
+  - if current_user.is_approved != true and current_user.role != 'admin'
+    %p= @language.not_approved
+    %p= @language.wait_for_admin

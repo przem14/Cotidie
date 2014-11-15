@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  def full_name
+    "#{name} #{surname}"
+  end
+
 private
   def set_not_approved
     self.is_approved ||= false

@@ -1,7 +1,7 @@
-%h1 Editing degree
+%h1= @language.edit_degree
 
 = render 'form'
 
-= link_to 'Show', @degree
+= link_to @language.show, @degree
 \|
-= link_to 'Back', degrees_path
+= link_to @language.back, degrees_path

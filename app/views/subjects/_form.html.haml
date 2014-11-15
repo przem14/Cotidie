@@ -7,7 +7,13 @@
           %li= msg
 
   .field
-    = f.label :name
+    = f.label @language.subject_name
     = f.text_field :name
+  .field
+    = f.label @language.teacher
+    = f.collection_select :teacher_id, @teachers, :id, :full_name
+  .field
+    = f.label @language.class
+    = f.collection_select :school_class_id, @classes, :id, :name
   .actions
-    = f.submit 'Save'
+    = f.submit @language.update

@@ -1,19 +1,35 @@
-%h1 Listing school_classes
+%p#notice= notice
+.switch_panel
+  - if current_user.role == 'admin'
+    =link_to @language.users, users_path
+  %b= @language.classes
+  = link_to @language.subjects, subjects_path
+  = link_to @language.degrees, degrees_path
+
+%br
 
 %table
   %tr
-    %th Name
+    %th= @language.class
+    %th= @language.educator
     %th
     %th
-    %th
+    - if current_user.role == 'admin'
+      %th
 
   - @school_classes.each do |school_class|
     %tr
       %td= school_class.name
-      %td= link_to 'Show', school_class
-      %td= link_to 'Edit', edit_school_class_path(school_class)
-      %td= link_to 'Destroy', school_class, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= school_class.teacher.full_name
+      %td= link_to @language.show, school_class
+      - if current_user.role == 'admin' or current_user.role == 'teacher'
+        %td= link_to @language.edit, edit_school_class_path(school_class)
+        %td= link_to @language.add_subject, :controller => 'subjects', :action => 'new',
+                                                                          :school_class_id => school_class.id
+      - if current_user.role == 'admin'
+        %td= link_to @language.delete, school_class, :method => :delete, :data => { :confirm => @language.sure }
 
 %br
 
-= link_to 'New School class', new_school_class_path
+- if current_user.role == 'admin'
+  = link_to @language.new_class, new_school_class_path

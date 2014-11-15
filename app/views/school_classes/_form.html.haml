@@ -9,5 +9,13 @@
   .field
     = f.label :name
     = f.text_field :name
+  .field
+    = f.label @language.educator
+    = f.collection_select :teacher_id, @teachers, :id, :full_name
+  .field
+    = f.label @language.add_students
+    %br
+    = f.collection_select(:students, @students, :id, :full_name,
+                                            {}, {:multiple => true, :size => 10})
   .actions
-    = f.submit 'Save'
+    = f.submit @language.update

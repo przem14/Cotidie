@@ -1,15 +1,24 @@
 %p#notice= notice
 
 %p
-  %b Value:
+  %b= @language.subject + ':'
+  = @degree.subject.name
+%p
+  %b= @language.teacher + ':'
+  = @degree.subject.teacher.full_name
+%p
+  %b= @language.degree + ':'
   = @degree.value
 %p
-  %b Activity:
+  %b= @language.activity + ':'
   = @degree.activity
 %p
-  %b Description:
+  %b= @language.description + ':'
   = @degree.description
+%p
+  %b= @language.created + ':'
+  = @degree.created_at
 
-= link_to 'Edit', edit_degree_path(@degree)
+= link_to @language.edit, edit_degree_path(@degree)
 \|
-= link_to 'Back', degrees_path
+= link_to @language.back, degrees_path

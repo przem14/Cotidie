@@ -1,9 +1,15 @@
 %p#notice= notice
 
 %p
-  %b Name:
+  %b= @language.subject_name + ':'
   = @subject.name
+%p
+  %b= @language.teacher + ':'
+  = @subject.teacher.full_name
+%p
+  %b= @language.class + ':'
+  = @subject.school_class.name
 
-= link_to 'Edit', edit_subject_path(@subject)
+= link_to @language.edit, edit_subject_path(@subject)
 \|
-= link_to 'Back', subjects_path
+= link_to @language.back, subjects_path

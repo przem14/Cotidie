@@ -1,9 +1,31 @@
 %p#notice= notice
 
 %p
-  %b Name:
+  %b= @language.class + ':'
   = @school_class.name
+%p
+  %b= @language.educator + ':'
+  = @school_class.teacher.full_name
+%p
+  %b= @language.students + ':'
 
-= link_to 'Edit', edit_school_class_path(@school_class)
+%table
+  %tr
+    %th= @language.name
+    %th= @language.surname
+    %th= @language.email
+    %th= @language.personal_id
+    %th
+
+  - @school_class.students.each do |student|
+    %tr
+      %td= student.name
+      %td= student.surname
+      %td= student.email
+      %td= student.personal_id
+      %td= link_to @language.delete_from_class, :controller => 'school_classes', :action => 'delete_from_class',
+                                                              :student_id => student.id, :class => @school_class
+
+= link_to @language.edit, edit_school_class_path(@school_class)
 \|
-= link_to 'Back', school_classes_path
+= link_to @language.back, school_classes_path

@@ -14,6 +14,8 @@
       - if user_signed_in?
         - if current_user.role == 'admin'
           = link_to @language.admin_panel, users_path
+        - elsif current_user.role == 'teacher' and current_user.is_approved == true
+          = link_to @language.teacher_panel, subjects_path
         = link_to @language.edit, edit_user_registration_path
         = link_to @language.sign_out, destroy_user_session_path , :method => :delete, method: :get
       - else

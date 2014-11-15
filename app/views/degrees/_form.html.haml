@@ -1,19 +1,52 @@
-= form_for @degree do |f|
-  - if @degree.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@degree.errors.count, "error")} prohibited this degree from being saved:"
-      %ul
-        - @degree.errors.full_messages.each do |msg|
-          %li= msg
+%p
+  %b= @language.class + ':'
+  = @subject.school_class.name
 
-  .field
-    = f.label :value
-    = f.text_field :value
-  .field
-    = f.label :activity
-    = f.text_field :activity
-  .field
-    = f.label :description
-    = f.text_area :description
+%p
+  %b= @language.subject + ':'
+  = @subject.name
+
+%p
+  %b= @language.teacher + ':'
+  = @subject.teacher.full_name
+
+= form_tag degrees_path do
+  - for degree in @degrees
+    - if degree.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(degree.errors.count, "error")} prohibited this degree from being saved:"
+        %ul
+          - degree.errors.full_messages.each do |msg|
+            %li= msg
+
+  %p
+    %b= @language.activity + ':'
+    = text_field_tag :activity, @degrees[0].activity
+    = hidden_field_tag :subject_id, @subject.id
+
+  %table
+    %tr
+      %th= @language.name
+      %th= @language.surname
+      %th= @language.degree
+      %th= @language.description
+      - @degrees.each_with_index do |degree, i|
+        %tr
+          - if action_name == 'new'
+            %td= @subject.school_class.students[i].name
+            %td= @subject.school_class.students[i].surname
+          - else
+            %td= @degrees[i].student.name
+            %td= @degrees[i].student.surname
+
+          = fields_for "degrees[#{i}]" do |f|
+            %td{align: :center}
+              .value_column
+                = f.text_field :value, :value => @degrees[i].value
+            %td
+              .description_column
+                = f.text_area :description, :value => @degrees[i].description
+                = f.hidden_field :student_id, :value => @subject.school_class.students[i].id
+  %br
   .actions
-    = f.submit 'Save'
+  = submit_tag @language.update

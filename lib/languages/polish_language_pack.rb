@@ -4,9 +4,16 @@ class PolishLanguagePack
               :name, :surname, :email, :personal_id, :role, :is_approved,
               :password, :password_confirmation, :current_password,
               :teacher, :tutor, :student, :admin, :roles,
-              :show, :edit, :update, :sure,
+              :show, :edit, :update, :sure, :delete,
               :delete_account, :back,
-              :admin_panel, :missing_admin_rights, :editing_user,
+              :admin_panel, :missing_admin_rights, :missing_rights, :editing_user,
+              :teacher_panel, :not_approved, :wait_for_admin,
+              :subjects, :classes, :users, :degrees,
+              :subject_name, :class, :subject, :educator, :students, :add_students,
+              :delete_from_class, :deleted_from_class,
+              :new_subject, :add_subject, :edit_subject, :new_class, :edit_class,
+              :degree, :description, :activity, :insert_degrees, :edit_degree,
+              :choose_subject, :created, :degrees_added, :degrees_errors,
               :yes, :no, :approved,
               :user_deleted, :user_updated, :self_destroy
 
@@ -39,6 +46,7 @@ class PolishLanguagePack
     @show   = 'Pokaż'
     @edit   = 'Edytuj'
     @update = 'Zapisz'
+    @delete = 'Usuń'
     @sure   = 'Jesteś pewny?'
 
     @delete_account = 'Usuń konto'
@@ -47,6 +55,43 @@ class PolishLanguagePack
     @admin_panel          = 'Panel Administracyjny'
     @editing_user         = 'Edytuj użytkownika'
     @missing_admin_rights = 'Nie posiadasz uprawnień administratora'
+    @missing_rights       = 'Nie posiadasz wymaganych uprawnień'
+
+    @teacher_panel  = 'Panel nauczyciela'
+    @not_approved   = 'Nie zostałeś jeszcze zatwierdzony przez administratora'
+    @wait_for_admin = 'Poczekaj, aż administrator zweryfikuje Twoje konto'
+
+    @subjects       = 'Przedmioty'
+    @classes        = 'Klasy'
+    @users          = 'Użytkownicy'
+    @degrees        = 'Oceny'
+
+    @subject_name   = 'Nazwa'
+    @class          = 'Klasa'
+    @subject        = 'Przedmiot'
+    @educator       = 'Wychowawca'
+    @students       = 'Uczniowie'
+    @add_students   = 'Dodaj uczniów'
+
+    @delete_from_class  = 'Usuń z klasy'
+    @deleted_from_class = 'Pomyślnie usunięto ucznia z klasy'
+
+    @new_subject    = 'Nowy przedmiot'
+    @add_subject    = 'Dodaj przedmiot'
+    @edit_subject   = 'Edytuj przedmiot'
+    @new_class      = 'Nowa klasa'
+    @edit_class     = 'Edytuj klasę'
+
+    @degree         = 'Ocena'
+    @activity       = 'Czynność'
+    @description    = 'Opis'
+    @insert_degrees = 'Wystaw oceny'
+    @edit_degree    = 'Edytuj ocenę'
+
+    @choose_subject = 'Wybierz przedmiot'
+    @created        = 'Wystawiono'
+    @degrees_added  = 'Pomyślnie wstawiono oceny'
+    @degrees_errors = 'Wykryto błędy w trakcie wystawiania ocen. Wprowadź poprawne wartości'
 
     @yes      = 'Tak'
     @no       = 'Nie'
