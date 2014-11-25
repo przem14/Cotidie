@@ -83,9 +83,6 @@ class SchoolClassesController < ApplicationController
       redirect_to school_classes_path, notice: @language.missing_admin_rights
     else
       @school_class.destroy
-      for student in @school_class.students
-        User.update(student.id, :student_class_id => nil)
-      end
       respond_with(@school_class)
     end
   end
