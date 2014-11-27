@@ -27,6 +27,10 @@ class User < ActiveRecord::Base
     "#{name} #{surname}"
   end
 
+  def degrees_by_subject(subject_id)
+    degrees.where(:subject_id => subject_id)
+  end
+
 private
   def set_not_approved
     self.is_approved ||= false

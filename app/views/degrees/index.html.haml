@@ -36,7 +36,7 @@
           %td= student.name
           %td= student.surname
           %td
-            - for degree in student.degrees.where(:subject_id => subject.id)
+            - for degree in student.degrees_by_subject(subject.id)
               = link_to degree.value, degree
               - if current_user.role == 'admin' or current_user.role == 'teacher'
                 %span{:style => 'font-size: 6.5pt'}= '('
