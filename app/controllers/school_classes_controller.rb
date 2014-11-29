@@ -14,13 +14,13 @@ class SchoolClassesController < ApplicationController
     if @school_classes.include?(@school_class)
       respond_with(@school_class)
     else
-      redirect_to school_classes_path, notice: @language.missing_rights
+      redirect_to school_classes_path, alert: @language.missing_rights
     end
   end
 
   def new
     if current_user.role != 'admin'
-      redirect_to school_classes_path, notice: @language.missing_admin_rights
+      redirect_to school_classes_path, alert: @language.missing_admin_rights
     else
       @school_class = SchoolClass.new
       @teachers = User.where("role = ? AND is_approved = ?", 0, true)
@@ -32,7 +32,7 @@ class SchoolClassesController < ApplicationController
 
   def edit
     if current_user.role == 'student' or current_user.role == 'parent' or !@school_classes.include?(@school_class)
-      redirect_to school_classes_path, notice: @language.missing_rights
+      redirect_to school_classes_path, alert: @language.missing_rights
     else
       @students = User.where("role = ? AND is_approved = ?", 1, true)
       if current_user.role == 'admin'
@@ -45,7 +45,7 @@ class SchoolClassesController < ApplicationController
 
   def create
     if current_user.role != 'admin'
-      redirect_to school_classes_path, notice: @language.missing_admin_rights
+      redirect_to school_classes_path, alert: @language.missing_admin_rights
     else
       @teachers = User.where("role = ? AND is_approved = ?", 0, true)
       @students = User.where("role = ? AND is_approved = ?", 1, true)
@@ -61,7 +61,7 @@ class SchoolClassesController < ApplicationController
 
   def update
     if current_user.role == 'student' or current_user.role == 'parent' or !@school_classes.include?(@school_class)
-      redirect_to school_classes_path, notice: @language.missing_rights
+      redirect_to school_classes_path, alert: @language.missing_rights
     else
       @students = User.where("role = ? AND is_approved = ?", 1, true)
       if current_user.role == 'admin'
@@ -80,7 +80,7 @@ class SchoolClassesController < ApplicationController
 
   def destroy
     if current_user.role != 'admin'
-      redirect_to school_classes_path, notice: @language.missing_admin_rights
+      redirect_to school_classes_path, alert: @language.missing_admin_rights
     else
       @school_class.destroy
       respond_with(@school_class)
@@ -88,8 +88,9 @@ class SchoolClassesController < ApplicationController
   end
 
   def delete_from_class
-    if current_user.role == 'student' or current_user.role == 'parent' or !@school_classes.include?(@school_class)
-      redirect_to school_classes_path, notice: @language.missing_rights
+    school_class = SchoolClass.find(params[:class])
+    if current_user.role == 'student' or current_user.role == 'parent' or !@school_classes.include?(school_class)
+      redirect_to school_classes_path, alert: @language.missing_rights
     else
       User.update(params[:student_id], :student_class_id => nil)
       redirect_to school_class_path(params[:class]), notice: @language.deleted_from_class
@@ -107,7 +108,7 @@ class SchoolClassesController < ApplicationController
 
     def valid_is_approved
       if current_user.is_approved != true
-        redirect_to root_path, notice: @language.not_approved
+        redirect_to root_path, alert: @language.not_approved
       end
     end
 

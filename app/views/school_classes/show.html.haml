@@ -1,31 +1,35 @@
-%p#notice= notice
+.page-header
+  %h1
+    .label.label-default= @language.class
+    = @school_class.name
 
-%p
-  %b= @language.class + ':'
-  = @school_class.name
 %p
   %b= @language.educator + ':'
   = @school_class.teacher.full_name
-%p
-  %b= @language.students + ':'
 
-%table
-  %tr
-    %th= @language.name
-    %th= @language.surname
-    %th= @language.email
-    %th= @language.personal_id
-    %th
+.panel.panel-default
+  .panel-heading
+    .panel-title= @language.students
+  .panel-body
+    %table.table.table-striped
+      %thead
+        %tr
+          %th= @language.name
+          %th= @language.surname
+          %th= @language.email
+          %th= @language.personal_id
+          %th
 
-  - @school_class.students.each do |student|
-    %tr
-      %td= student.name
-      %td= student.surname
-      %td= student.email
-      %td= student.personal_id
-      %td= link_to @language.delete_from_class, :controller => 'school_classes', :action => 'delete_from_class',
-                                                              :student_id => student.id, :class => @school_class
+      %tbody
+        - @school_class.students.each do |student|
+          %tr
+            %td= student.name
+            %td= student.surname
+            %td= student.email
+            %td= student.personal_id
+            %td= link_to @language.delete_from_class, {:controller => 'school_classes', :action => 'delete_from_class',
+                                                        :student_id => student.id, :class => @school_class},
+                                                        :class => 'btn btn-danger btn-xs', :style => 'color: white;'
 
-= link_to @language.edit, edit_school_class_path(@school_class)
-\|
-= link_to @language.back, school_classes_path
+= link_to @language.edit, edit_school_class_path(@school_class), :class => 'btn btn-default'
+= link_to @language.back, school_classes_path, :class => 'btn btn-default'

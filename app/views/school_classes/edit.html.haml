@@ -1,8 +1,4 @@
-%p#notice= notice
-%h1= @language.edit_class
+.page-header
+  %h1= @language.edit_class
 
 = render 'form'
-
-= link_to @language.show, @school_class
-\|
-= link_to @language.back, school_classes_path

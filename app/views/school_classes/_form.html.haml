@@ -6,16 +6,19 @@
         - @school_class.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
+  .form-group
+    = f.label @language.class
+    .controls
+      = f.text_field :name, class: 'form-control', required: true
+  .form-group
     = f.label @language.educator
-    = f.collection_select :teacher_id, @teachers, :id, :full_name
-  .field
+    .controls
+      = f.collection_select :teacher_id, @teachers, :id, :full_name
+  .form-group
     = f.label @language.add_students
-    %br
-    = f.collection_select(:students, @students, :id, :full_name,
+    .controls
+      = f.collection_select(:students, @students, :id, :full_name,
                                             {}, {:multiple => true, :size => 10})
   .actions
-    = f.submit @language.update
+    = f.submit @language.update, :class => 'btn btn-primary'
+    = link_to @language.back, school_classes_path, :class => 'btn btn-default'

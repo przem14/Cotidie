@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   def destroy
     if @user.id == current_user.id
       respond_to do |format|
-        format.html { redirect_to users_url, notice: @language.self_destroy }
+        format.html { redirect_to users_url, alert: @language.self_destroy }
         format.json { render :show, status: :ok, location: @user }
       end
     else
@@ -62,7 +62,7 @@ class UsersController < ApplicationController
 
     def valid_is_admin
       if current_user.role != 'admin'
-        redirect_to root_path, notice: @language.missing_admin_rights
+        redirect_to root_path, alert: @language.missing_admin_rights
       end
     end
 end

@@ -1,34 +1,41 @@
-%p#notice= notice
-.switch_panel
-  %b= @language.users
-  = link_to @language.classes, school_classes_path
-  = link_to @language.subjects, subjects_path
-  = link_to @language.degrees, degrees_path
+%div.navbar.navbar-default
+  .container
+    %div.navbar-header
+      .navbar-toogle{'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse'}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
 
-%br
+    %div.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li.active= link_to @language.users, users_path
+        %li= link_to @language.classes, school_classes_path
+        %li= link_to @language.subjects, subjects_path
+        %li= link_to @language.degrees, degrees_path
 
-%table
-  %tr
-    %th= @language.name
-    %th= @language.surname
-    %th= @language.email
-    %th= @language.personal_id
-    %th= @language.role
-    %th= @language.is_approved
-    %th
-    %th
-    %th
-
-  - @users.each do |user|
+%table.table.table-striped
+  %thead
     %tr
-      %td= user.name
-      %td= user.surname
-      %td= user.email
-      %td= user.personal_id
-      %td= @language.roles[user.role]
-      %td= @language.approved[user.is_approved]
-      %td= link_to @language.show, user
-      %td= link_to @language.edit, edit_user_path(user)
-      %td= link_to @language.delete_account, user, :method => :delete, :data => { :confirm => @language.sure }
+      %th= @language.name
+      %th= @language.surname
+      %th= @language.email
+      %th= @language.personal_id
+      %th= @language.role
+      %th= @language.is_approved
+      %th
 
-%br
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= user.name
+        %td= user.surname
+        %td= user.email
+        %td= user.personal_id
+        %td= @language.roles[user.role]
+        %td= @language.approved[user.is_approved]
+        %td
+          = link_to @language.show, user, :class => 'btn btn-default btn-xs'
+          = link_to @language.edit, edit_user_path(user), :class => 'btn btn-default btn-xs'
+          = link_to @language.delete_account, user, :method => :delete, :data => { :confirm => @language.sure },
+                                                    :class => 'btn btn-danger btn-xs', :style => 'color: white;'

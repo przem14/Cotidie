@@ -1,4 +1,7 @@
-%p#notice= notice
+.page-header
+  %h1
+    .label.label-default= @language.degree
+    = @degree.value
 
 %p
   %b= @language.subject + ':'
@@ -6,9 +9,6 @@
 %p
   %b= @language.teacher + ':'
   = @degree.subject.teacher.full_name
-%p
-  %b= @language.degree + ':'
-  = @degree.value
 %p
   %b= @language.activity + ':'
   = @degree.activity
@@ -19,6 +19,5 @@
   %b= @language.created + ':'
   = @degree.created_at
 
-= link_to @language.edit, edit_degree_path(@degree)
-\|
-= link_to @language.back, degrees_path
+= link_to @language.edit, edit_degree_path(@degree), :class => 'btn btn-default'
+= link_to @language.back, degrees_path, :class => 'btn btn-default'

@@ -1,7 +1,4 @@
-%h1= @language.editing_user
+.page-header
+    %h1= @language.editing_user
 
 = render 'form'
-
-= link_to @language.show, @user
-\|
-= link_to @language.back, users_path

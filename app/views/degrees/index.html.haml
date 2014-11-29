@@ -1,49 +1,59 @@
-%p#notice= notice
-.switch_panel
-  - if current_user.role == 'admin'
-    =link_to @language.users, users_path
-  - if current_user.role != 'tutor'
-    = link_to @language.classes, school_classes_path
-  = link_to @language.subjects, subjects_path
-  %b= @language.degrees
+%div.navbar.navbar-default
+  .container
+    %div.navbar-header
+      .navbar-toogle{'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse'}
+        - if current_user.role == 'admin'
+          %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
 
-%br
+    %div.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        - if current_user.role == 'admin'
+          %li= link_to @language.users, users_path
+        %li= link_to @language.classes, school_classes_path
+        %li= link_to @language.subjects, subjects_path
+        %li.active= link_to @language.degrees, degrees_path
 
 %center
-  %p= @language.choose_subject
+  %h4= @language.choose_subject
 
   %form{:action => new_degree_path, :method => :get}
     = select_tag :subject_id, options_for_select(@subjects.map { |subject| [subject.name_with_class, subject.id] })
     .actions
-    = submit_tag @language.insert_degrees, :name => nil
+    = submit_tag @language.insert_degrees, :name => nil, :class => 'btn btn-primary'
 
 %br
 
 - for school_class in @classes
-  %center
-    %h2= school_class.name
-  - for subject in school_class.subjects
-    %center
-      %h3= subject.name
-    %table
-      %tr
-        %th= @language.name
-        %th= @language.surname
-        %th= @language.degrees
+  .panel.panel-info
+    %center.panel-heading
+      %b.panel-title= school_class.name
 
-      - for student in school_class.students
-        %tr
-          %td= student.name
-          %td= student.surname
-          %td
-            - for degree in student.degrees_by_subject(subject.id)
-              = link_to degree.value, degree
-              - if current_user.role == 'admin' or current_user.role == 'teacher'
-                %span{:style => 'font-size: 6.5pt'}= '('
-                = link_to @language.edit, edit_degree_path(degree), :style => 'font-size: 6.5pt'
-                %span{:style => 'font-size: 6.5pt'}= '|'
-                = link_to @language.delete, degree, :method => :delete, :style => 'font-size: 6.5pt',
-                                                                        :data => { :confirm => @language.sure }
-                %span{:style => 'font-size: 6.5pt'}= ')'
+    .panel-body
+      - for subject in school_class.subjects
+        .panel.panel-default
+          %center.panel-heading
+            .panel-title= subject.name
 
-    %br
+          .panel-body
+            %table.table.table-striped
+              %thead
+                %tr
+                  %th= @language.name
+                  %th= @language.surname
+                  %th= @language.degrees
+
+              %tbody
+                - for student in school_class.students
+                  %tr
+                    %td= student.name
+                    %td= student.surname
+                    %td
+                      - for degree in student.degrees_by_subject(subject.id)
+                        = link_to degree.value, degree
+                        - if current_user.role == 'admin' or current_user.role == 'teacher'
+                          = link_to @language.edit, edit_degree_path(degree), :class => 'btn btn-default btn-xs'
+                          = link_to @language.delete, degree, :method => :delete, :class => 'btn btn-danger btn-xs',
+                                                      :style => 'color: white;', :data => { :confirm => @language.sure }

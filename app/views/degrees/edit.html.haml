@@ -1,7 +1,4 @@
-%h1= @language.edit_degree
+.page-header
+  %h1= @language.edit_degree
 
 = render 'form'
-
-= link_to @language.show, @degree
-\|
-= link_to @language.back, degrees_path

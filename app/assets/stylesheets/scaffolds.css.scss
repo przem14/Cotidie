@@ -41,12 +41,13 @@ div {
 }
 
 .value_column input {
+  float: left;
   width: 30px;
 }
 
 .description_column textarea {
-  height: 23px;
-  width: 300px;
+  height: 27px;
+  width: 350px;
 }
 
 #notice {

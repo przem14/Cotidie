@@ -6,14 +6,18 @@
         - @subject.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
+  .form-group
     = f.label @language.subject_name
-    = f.text_field :name
-  .field
+    .controls
+      = f.text_field :name, class: 'form-control', required: true
+  .form-group
     = f.label @language.teacher
-    = f.collection_select :teacher_id, @teachers, :id, :full_name
-  .field
+    .controls
+      = f.collection_select :teacher_id, @teachers, :id, :full_name
+  .form-group
     = f.label @language.class
-    = f.collection_select :school_class_id, @classes, :id, :name
+    .controls
+      = f.collection_select :school_class_id, @classes, :id, :name
   .actions
-    = f.submit @language.update
+    = f.submit @language.update, :class => 'btn btn-primary'
+    = link_to @language.back, subjects_path, :class => 'btn btn-default'

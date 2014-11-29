@@ -1,38 +1,43 @@
-%p#notice= notice
-.switch_panel
-  - if current_user.role == 'admin'
-    =link_to @language.users, users_path
-  - if current_user.role != 'tutor'
-    = link_to @language.classes, school_classes_path
-  %b= @language.subjects
-  = link_to @language.degrees, degrees_path
+%div.navbar.navbar-default
+  .container
+    %div.navbar-header
+      .navbar-toogle{'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse'}
+        - if current_user.role == 'admin'
+          %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
 
-%br
+    %div.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        - if current_user.role == 'admin'
+          %li= link_to @language.users, users_path
+        %li= link_to @language.classes, school_classes_path
+        %li.active= link_to @language.subjects, subjects_path
+        %li= link_to @language.degrees, degrees_path
 
-
-%table
-  %tr
-    %th= @language.subject_name
-    %th= @language.class
-    %th= @language.teacher
-    %th
-    - if current_user.role == 'admin' or current_user.role == 'teacher'
-      %th
-      %th
-      %th
-
-  - @subjects.each do |subject|
+%table.table.table-striped
+  %thead
     %tr
-      %td= subject.name
-      %td= subject.school_class.name
-      %td= subject.teacher.full_name
-      %td= link_to @language.show, subject
-      - if current_user.role == 'admin' or current_user.role == 'teacher'
-        %td= link_to @language.edit, edit_subject_path(subject)
-        %td= link_to @language.insert_degrees, :controller => 'degrees', :action => 'new', :subject_id => subject.id
-        %td= link_to @language.delete, subject, :method => :delete, :data => { :confirm => @language.sure }
+      %th= @language.subject_name
+      %th= @language.class
+      %th= @language.teacher
+      %th
 
-%br
+  %tbody
+    - @subjects.each do |subject|
+      %tr
+        %td= subject.name
+        %td= subject.school_class.name
+        %td= subject.teacher.full_name
+        %td
+          = link_to @language.show, subject, :class => 'btn btn-default btn-xs'
+          - if current_user.role == 'admin' or current_user.role == 'teacher'
+            = link_to @language.edit, edit_subject_path(subject), :class => 'btn btn-default btn-xs'
+            = link_to @language.insert_degrees, {:controller => 'degrees', :action => 'new', :subject_id => subject.id},
+                                                  :class => 'btn btn-default btn-xs'
+            = link_to @language.delete, subject, :method => :delete, :data => { :confirm => @language.sure },
+                                                  :class => 'btn btn-danger btn-xs', :style => 'color: white;'
 
 - if current_user.role == 'admin' or current_user.role == 'teacher'
-  = link_to @language.new_subject, new_subject_path
+  = link_to @language.new_subject, new_subject_path, :class => 'btn btn-primary', :style => 'color: white;'

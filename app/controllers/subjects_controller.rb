@@ -14,13 +14,13 @@ class SubjectsController < ApplicationController
     if @subjects.include?(@subject)
       respond_with(@subject)
     else
-      redirect_to subjects_path, notice: @language.missing_rights
+      redirect_to subjects_path, alert: @language.missing_rights
     end
   end
 
   def new
     if current_user.role != 'admin' and current_user.role != 'teacher'
-      redirect_to subjects_path, notice: @language.missing_rights
+      redirect_to subjects_path, alert: @language.missing_rights
     else
       @subject = Subject.new
       if params.include?(:school_class_id)
@@ -40,7 +40,7 @@ class SubjectsController < ApplicationController
 
   def edit
     if current_user.role == 'student' or current_user.role == 'parent' or !@subjects.include?(@subject)
-      redirect_to subjects_path, notice: @language.missing_rights
+      redirect_to subjects_path, alert: @language.missing_rights
     else
     @classes = SchoolClass.all
       if current_user.role == 'admin'
@@ -53,7 +53,7 @@ class SubjectsController < ApplicationController
 
   def create
     if current_user.role != 'admin' and current_user.role != 'teacher'
-      redirect_to subjects_path, notice: @language.missing_rights
+      redirect_to subjects_path, alert: @language.missing_rights
     else
       @subject = Subject.new(subject_params)
       @classes = SchoolClass.all
@@ -70,7 +70,7 @@ class SubjectsController < ApplicationController
 
   def update
     if current_user.role == 'student' or current_user.role == 'parent' or !@subjects.include?(@subject)
-      redirect_to subjects_path, notice: @language.missing_rights
+      redirect_to subjects_path, alert: @language.missing_rights
     else
       @classes = SchoolClass.all
       if current_user.role == 'admin'
@@ -86,7 +86,7 @@ class SubjectsController < ApplicationController
 
   def destroy
     if current_user.role == 'student' or current_user.role == 'parent' or !@subjects.include?(@subject)
-      redirect_to subjects_path, notice: @language.missing_admin_rights
+      redirect_to subjects_path, alert: @language.missing_admin_rights
     else
       @classes = SchoolClass.all
       if current_user.role == 'admin'
@@ -111,7 +111,7 @@ class SubjectsController < ApplicationController
 
     def valid_is_approved
       if current_user.is_approved != true
-        redirect_to root_path, notice: @language.not_approved
+        redirect_to root_path, alert: @language.not_approved
       end
     end
 

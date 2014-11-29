@@ -13,7 +13,7 @@ class PolishLanguagePack
               :delete_from_class, :deleted_from_class,
               :new_subject, :add_subject, :edit_subject, :new_class, :edit_class,
               :degree, :description, :activity, :insert_degrees, :edit_degree,
-              :choose_subject, :created, :degrees_added, :degrees_errors,
+              :choose_subject, :created, :degrees_errors,
               :yes, :no, :approved,
               :user_deleted, :user_updated, :self_destroy
 
@@ -90,7 +90,6 @@ class PolishLanguagePack
 
     @choose_subject = 'Wybierz przedmiot'
     @created        = 'Wystawiono'
-    @degrees_added  = 'Pomyślnie wstawiono oceny'
     @degrees_errors = 'Wykryto błędy w trakcie wystawiania ocen. Wprowadź poprawne wartości'
 
     @yes      = 'Tak'

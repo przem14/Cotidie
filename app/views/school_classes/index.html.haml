@@ -1,35 +1,42 @@
-%p#notice= notice
-.switch_panel
-  - if current_user.role == 'admin'
-    =link_to @language.users, users_path
-  %b= @language.classes
-  = link_to @language.subjects, subjects_path
-  = link_to @language.degrees, degrees_path
+%div.navbar.navbar-default
+  .container
+    %div.navbar-header
+      .navbar-toogle{'data-target' => '.navbar-collapse', 'data-toggle' => 'collapse'}
+        - if current_user.role == 'admin'
+          %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
 
-%br
+    %div.collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        - if current_user.role == 'admin'
+          %li= link_to @language.users, users_path
+        %li.active= link_to @language.classes, school_classes_path
+        %li= link_to @language.subjects, subjects_path
+        %li= link_to @language.degrees, degrees_path
 
-%table
-  %tr
-    %th= @language.class
-    %th= @language.educator
-    %th
-    %th
-    - if current_user.role == 'admin'
+%table.table.table-striped
+  %thead
+    %tr
+      %th= @language.class
+      %th= @language.educator
       %th
 
-  - @school_classes.each do |school_class|
-    %tr
-      %td= school_class.name
-      %td= school_class.teacher.full_name
-      %td= link_to @language.show, school_class
-      - if current_user.role == 'admin' or current_user.role == 'teacher'
-        %td= link_to @language.edit, edit_school_class_path(school_class)
-        %td= link_to @language.add_subject, :controller => 'subjects', :action => 'new',
-                                                                          :school_class_id => school_class.id
-      - if current_user.role == 'admin'
-        %td= link_to @language.delete, school_class, :method => :delete, :data => { :confirm => @language.sure }
-
-%br
+  %tbody
+    - @school_classes.each do |school_class|
+      %tr
+        %td= school_class.name
+        %td= school_class.teacher.full_name
+        %td
+          = link_to @language.show, school_class, :class => 'btn btn-default btn-xs'
+          - if current_user.role == 'admin' or current_user.role == 'teacher'
+            = link_to @language.edit, edit_school_class_path(school_class), :class => 'btn btn-default btn-xs'
+            = link_to @language.add_subject, {:controller => 'subjects', :action => 'new',
+                                              :school_class_id => school_class.id}, :class => 'btn btn-default btn-xs'
+          - if current_user.role == 'admin'
+            = link_to @language.delete, school_class, :method => :delete, :data => { :confirm => @language.sure },
+                                                      :class => 'btn btn-danger btn-xs', :style => 'color: white;'
 
 - if current_user.role == 'admin'
-  = link_to @language.new_class, new_school_class_path
+  = link_to @language.new_class, new_school_class_path, :class => 'btn btn-primary', :style => 'color: white;'

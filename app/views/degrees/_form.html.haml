@@ -10,6 +10,8 @@
   %b= @language.teacher + ':'
   = @subject.teacher.full_name
 
+%br
+
 = form_tag degrees_path do
   - for degree in @degrees
     - if degree.errors.any?
@@ -19,17 +21,21 @@
           - degree.errors.full_messages.each do |msg|
             %li= msg
 
-  %p
-    %b= @language.activity + ':'
-    = text_field_tag :activity, @degrees[0].activity
-    = hidden_field_tag :subject_id, @subject.id
+  .form-group
+    = label_tag @language.activity
+    .controls
+      = text_field_tag :activity, @degrees[0].activity, class: 'form-control', required: true
+      = hidden_field_tag :subject_id, @subject.id
 
-  %table
-    %tr
-      %th= @language.name
-      %th= @language.surname
-      %th= @language.degree
-      %th= @language.description
+  %table.table.table-striped
+    %thead
+      %tr
+        %th= @language.name
+        %th= @language.surname
+        %th= @language.degree
+        %th= @language.description
+
+    %tbody
       - @degrees.each_with_index do |degree, i|
         %tr
           - if action_name == 'new'
@@ -47,6 +53,7 @@
               .description_column
                 = f.text_area :description, :value => @degrees[i].description
                 = f.hidden_field :student_id, :value => @subject.school_class.students[i].id
-  %br
+
   .actions
-  = submit_tag @language.update
+  = submit_tag @language.update, :class => 'btn btn-primary'
+  = link_to @language.back, degrees_path, :class => 'btn btn-default'

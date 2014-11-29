@@ -6,26 +6,33 @@
         - @user.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
+  .form-group
     = f.label @language.name
-    = f.text_field :name
-  .field
+    .controls
+      = f.text_field :name, class: 'form-control', required: true
+  .form-group
     = f.label @language.surname
-    = f.text_field :surname
-  .field
+    .controls
+      = f.text_field :surname, class: 'form-control', required: true
+  .form-group
     = f.label @language.email
-    = f.text_field :email
-  .field
+    .controls
+      = f.text_field :email, class: 'form-control', required: true
+  .form-group
     = f.label @language.personal_id
-    = f.text_field :personal_id
-  .field
+    .controls
+      = f.text_field :personal_id, class: 'form-control', required: true
+  .form-group
     = f.label @language.role
-    = f.select(:role, {@language.student  => 'student',
-                       @language.teacher  => 'teacher',
-                       @language.tutor    => 'tutor',
-                       @language.admin    => 'admin'})
-  .field
+    .controls
+      = f.select(:role, {@language.student  => 'student',
+                         @language.teacher  => 'teacher',
+                         @language.tutor    => 'tutor',
+                         @language.admin    => 'admin'})
+  .form-group
     = f.label @language.is_approved
-    = f.check_box :is_approved
+    .controls
+      = f.check_box :is_approved
   .actions
-    = f.submit @language.update
+    = f.submit @language.update, :class => 'btn btn-primary'
+    = link_to @language.back, users_path, :class => 'btn btn-default'
