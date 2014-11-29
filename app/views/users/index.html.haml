@@ -33,7 +33,12 @@
         %td= user.email
         %td= user.personal_id
         %td= @language.roles[user.role]
-        %td= @language.approved[user.is_approved]
+        %td
+          = form_for user, :remote => true do |f|
+            .form-group
+              = f.label @language.is_approved
+              .controls
+                = f.check_box :is_approved, :class => 'submittable'
         %td
           = link_to @language.show, user, :class => 'btn btn-default btn-xs'
           = link_to @language.edit, edit_user_path(user), :class => 'btn btn-default btn-xs'
