@@ -30,6 +30,10 @@
                   %li= link_to @language.admin_panel, users_path
                 - elsif current_user.role == 'teacher' and current_user.is_approved
                   %li= link_to @language.teacher_panel, subjects_path
+                - elsif current_user.role == 'tutor' and current_user.is_approved
+                  %li= link_to @language.tutor_panel, subjects_path
+                - elsif current_user.role == 'student' and current_user.is_approved
+                  %li= link_to @language.student_panel, subjects_path
                 %li= link_to @language.edit, edit_user_registration_path
                 %li= link_to @language.sign_out, destroy_user_session_path , :method => :delete, method: :get
               - else

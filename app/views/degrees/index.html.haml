@@ -16,15 +16,16 @@
         %li= link_to @language.subjects, subjects_path
         %li.active= link_to @language.degrees, degrees_path
 
-%center
-  %h4= @language.choose_subject
+- if current_user.role == 'admin' or current_user.role == 'teacher'
+  %center
+    %h4= @language.choose_subject
 
-  %form{:action => new_degree_path, :method => :get}
-    = select_tag :subject_id, options_for_select(@subjects.map { |subject| [subject.name_with_class, subject.id] })
-    .actions
-    = submit_tag @language.insert_degrees, :name => nil, :class => 'btn btn-primary'
+    %form{:action => new_degree_path, :method => :get}
+      = select_tag :subject_id, options_for_select(@subjects.map { |subject| [subject.name_with_class, subject.id] })
+      .actions
+      = submit_tag @language.insert_degrees, :name => nil, :class => 'btn btn-primary'
 
-%br
+  %br
 
 - for school_class in @classes
   .panel.panel-info
@@ -46,7 +47,7 @@
                   %th= @language.degrees
 
               %tbody
-                - for student in school_class.students
+                - for student in school_class.permitted_students(current_user)
                   %tr
                     %td= student.name
                     %td= student.surname

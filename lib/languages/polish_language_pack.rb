@@ -7,7 +7,7 @@ class PolishLanguagePack
               :show, :edit, :update, :sure, :delete,
               :delete_account, :back,
               :admin_panel, :missing_admin_rights, :missing_rights, :editing_user,
-              :teacher_panel, :not_approved, :wait_for_admin,
+              :student_panel, :tutor_panel, :teacher_panel, :not_approved, :wait_for_admin,
               :subjects, :classes, :users, :degrees,
               :subject_name, :class, :subject, :educator, :students, :add_students,
               :delete_from_class, :deleted_from_class,
@@ -57,6 +57,8 @@ class PolishLanguagePack
     @missing_admin_rights = 'Nie posiadasz uprawnień administratora'
     @missing_rights       = 'Nie posiadasz wymaganych uprawnień'
 
+    @student_panel  = 'Panel ucznia'
+    @tutor_panel  = 'Panel rodzica'
     @teacher_panel  = 'Panel nauczyciela'
     @not_approved   = 'Nie zostałeś jeszcze zatwierdzony przez administratora'
     @wait_for_admin = 'Poczekaj, aż administrator zweryfikuje Twoje konto'

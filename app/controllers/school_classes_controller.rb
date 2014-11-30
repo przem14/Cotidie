@@ -11,6 +11,11 @@ class SchoolClassesController < ApplicationController
   end
 
   def show
+    if current_user.role == 'tutor'
+      @students = @school_class.students & [current_user.student]
+    else
+      @students = @school_class.students
+    end
     if @school_classes.include?(@school_class)
       respond_with(@school_class)
     else
