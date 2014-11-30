@@ -36,7 +36,6 @@
         %td
           = form_for user, :remote => true do |f|
             .form-group
-              = f.label @language.is_approved
               .controls
                 = f.check_box :is_approved, :class => 'submittable'
         %td

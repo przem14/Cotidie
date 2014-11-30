@@ -116,11 +116,11 @@ class SchoolClassesController < ApplicationController
       if current_user.role == 'admin'
         @school_classes = SchoolClass.all
       elsif current_user.role == 'teacher'
-        @school_classes  = current_user.subjects.map{ |subject| subject.school_class }.uniq
+        @school_classes = [current_user.teacher_class]
       elsif current_user.role == 'student'
-        @school_classes  = [current_user.student_class]
+        @school_classes = [current_user.student_class]
       else
-        @school_classes  = [current_user.student.student_class]
+        @school_classes = [current_user.student.student_class]
       end
     end
 end

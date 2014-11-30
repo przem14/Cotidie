@@ -32,7 +32,7 @@
       %b.panel-title= school_class.name
 
     .panel-body
-      - for subject in school_class.subjects
+      - for subject in school_class.subjects & @subjects
         .panel.panel-default
           %center.panel-heading
             .panel-title= subject.name
