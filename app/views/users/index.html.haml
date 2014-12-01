@@ -32,7 +32,12 @@
         %td= user.surname
         %td= user.email
         %td= user.personal_id
-        %td= @language.roles[user.role]
+        %td
+          = @language.roles[user.role]
+          - if user.role == 'tutor' and user.student
+            = ' ('
+            = link_to user.student.full_name, user_path(user.student)
+            = ')'
         %td
           = form_for user, :remote => true do |f|
             = f.check_box :is_approved, :class => 'submittable'

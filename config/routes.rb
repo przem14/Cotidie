@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'users/set_student' => 'users#set_student'
+
+  post 'users/update_student' => 'users#update_student'
+
   resources :school_classes do
     member do
       get 'delete_from_class'

@@ -34,7 +34,7 @@
     = f.select(:role, {@language.student  => 'student',
                        @language.teacher  => 'teacher',
                        @language.tutor    => 'tutor'})
+
   .actions
-    %br
     = f.submit @language.sign_up
 = render "devise/shared/links"

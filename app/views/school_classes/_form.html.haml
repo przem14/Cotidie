@@ -20,5 +20,5 @@
       = f.collection_select(:students, @students, :id, :full_name,
                                             {}, {:multiple => true, :size => 10})
   .actions
-    = f.submit @language.update, :class => 'btn btn-primary'
+    = f.submit @language.update, :class => 'btn btn-primary', :style => 'color: white;'
     = link_to @language.back, school_classes_path, :class => 'btn btn-default'

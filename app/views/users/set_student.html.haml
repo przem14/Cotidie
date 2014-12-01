@@ -1,0 +1,6 @@
+%br
+= form_tag(:method => 'post', :controller => 'users', :action => 'update_student') do
+  .field
+    = collection_select :user, :student, @users, :id, :full_name
+  .actions
+    = submit_tag @language.update, :class => 'btn btn-primary', :style => 'color: white;'

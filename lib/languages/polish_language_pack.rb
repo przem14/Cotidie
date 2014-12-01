@@ -14,6 +14,7 @@ class PolishLanguagePack
               :new_subject, :add_subject, :edit_subject, :new_class, :edit_class,
               :degree, :description, :activity, :insert_degrees, :edit_degree,
               :choose_subject, :created, :degrees_errors,
+              :set_student, :set, :student_set,
               :yes, :no, :approved,
               :user_deleted, :user_updated, :self_destroy
 
@@ -93,6 +94,10 @@ class PolishLanguagePack
     @choose_subject = 'Wybierz przedmiot'
     @created        = 'Wystawiono'
     @degrees_errors = 'Wykryto błędy w trakcie wystawiania ocen. Wprowadź poprawne wartości'
+
+    @set_student  = 'Nie podałeś jeszcze kogo rodzicem jesteś'
+    @set          = 'Ustaw'
+    @student_set  = 'Pomyślnie ustawiono rodzicielstwo'
 
     @yes      = 'Tak'
     @no       = 'Nie'

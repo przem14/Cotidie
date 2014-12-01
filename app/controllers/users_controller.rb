@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
-  before_filter :valid_is_admin
+  before_filter :valid_is_admin, except: [:set_student, :update_student]
 
   # GET /users
   # GET /users.json
@@ -16,6 +16,19 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+  end
+
+  def set_student
+    @users = User.where(:role => 1)
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
+  end
+
+  def update_student
+    User.find(params[:user][:student]).update(:tutor_id => current_user.id)
+    current_user.update(:is_approved => false)
+    redirect_to root_path, notice: @language.student_set
   end
 
   # PATCH/PUT /users/1'You cannot delete yourself.'
