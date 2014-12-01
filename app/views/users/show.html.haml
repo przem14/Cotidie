@@ -12,11 +12,11 @@
 %p
   %b= @language.is_approved + ':'
   = @language.approved[@user.is_approved]
-- if @user.role == 'tutor'
+- if @user.role == 'tutor' and @user.student
   %p
     %b= @language.student + ':'
     = @user.student.full_name
-- elsif @user.role == 'student'
+- elsif @user.role == 'student' and @user.tutor
   %p
     %b= @language.tutor + ':'
     = @user.tutor.full_name
