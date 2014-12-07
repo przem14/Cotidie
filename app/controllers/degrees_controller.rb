@@ -39,7 +39,7 @@ class DegreesController < ApplicationController
   def new
     @subject = Subject.find(params[:subject_id])
     if current_user.role == 'admin' or (current_user.role == 'teacher' and @subject.teacher.id == current_user.id)
-      @degrees = Array.new(@subject.school_class.students.count) {Degree.new}
+      @degrees = Array.new(@subject.school_class.students.count) {DegreeForm.new}
       if @degrees.length > 0
         respond_with(@degree)
       else
@@ -62,9 +62,15 @@ class DegreesController < ApplicationController
   def create
     @degrees = Array.new(params[:degrees].count{ |degree| degree[1][:value] != '' })
     params[:degrees].select{ |key, degree| degree[:value] != '' }.each_with_index do |degree, i|
-      @degrees[i] = Degree.new(degree[1].merge({:activity => params[:activity], :subject_id => params[:subject_id]}))
-      if !@degrees[i].valid?
-        redirect_to new_degree_path(:subject_id => params[:subject_id]), :alert => @language.degrees_errors
+      @degrees[i] = DegreeForm.new(value:       degree[1][:value],
+                                   description: degree[1][:description],
+                                   activity:    params[:activity])
+      if @degrees[i].valid?
+        @degrees[i] = Degree.new(degree[1].merge({:activity => params[:activity],
+                                                  :subject_id => params[:subject_id]}))
+      else
+        redirect_to new_degree_path(:subject_id => params[:subject_id]),
+                    :alert => @language.degrees_errors
         return
       end
     end
