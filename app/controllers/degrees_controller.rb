@@ -1,5 +1,6 @@
 class DegreesController < ApplicationController
   before_action :set_degree, only: [:show, :edit, :update, :destroy]
+  before_action :set_degree_service, only: [:create]
   before_action :authenticate_user!
   before_filter :valid_is_approved
 
@@ -60,24 +61,12 @@ class DegreesController < ApplicationController
   end
 
   def create
-    @degrees = Array.new(params[:degrees].count{ |degree| degree[1][:value] != '' })
-    params[:degrees].select{ |key, degree| degree[:value] != '' }.each_with_index do |degree, i|
-      @degrees[i] = DegreeForm.new(value:       degree[1][:value],
-                                   description: degree[1][:description],
-                                   activity:    params[:activity])
-      if @degrees[i].valid?
-        @degrees[i] = Degree.new(degree[1].merge({:activity => params[:activity],
-                                                  :subject_id => params[:subject_id]}))
-      else
-        redirect_to new_degree_path(:subject_id => params[:subject_id]),
-                    :alert => @language.degrees_errors
-        return
-      end
+    if @degree_service.call(filled_degrees_forms)
+      redirect_to degrees_path
+    else
+      redirect_to new_degree_path(:subject_id => params[:subject_id]),
+                  :alert => @language.degrees_errors
     end
-    @degrees.each do |degree|
-      degree.save
-    end
-    redirect_to degrees_path
   end
 
   def update
@@ -107,9 +96,30 @@ class DegreesController < ApplicationController
       params.require(:degree).permit(:value, :activity, :description)
     end
 
+    def set_degree_service
+      @degree_service = DegreeService.new
+    end
+
     def valid_is_approved
       if current_user.is_approved != true
         redirect_to root_path, alert: @language.not_approved
       end
+    end
+
+    def filled_value_from_params
+      params[:degrees].select{ |key, degree| degree[:value] != '' }
+    end
+
+    def filled_degrees_forms
+      degrees = Array.new
+
+      filled_value_from_params.each do |degree|
+        degrees.push(DegreeForm.new(value:       degree[1][:value],
+                                    description: degree[1][:description],
+                                    activity:    params[:activity],
+                                    student_id:  degree[1][:student_id],
+                                    subject_id:  params[:subject_id]))
+      end
+      degrees
     end
 end
